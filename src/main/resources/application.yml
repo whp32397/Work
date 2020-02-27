@@ -10,3 +10,13 @@ spring:
     view:
       prefix: /
       suffix: .jsp
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+mybatis:
+  type-aliases-package: com.whp.entity
+  mapper-locations: classpath:com/whp/mapper/*Mapper.xml
