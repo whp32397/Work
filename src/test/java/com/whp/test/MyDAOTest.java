@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = App.class)
 public class MyDAOTest {
@@ -20,8 +22,15 @@ public class MyDAOTest {
         User user = new User();
         user.setUsername("xiaohei");
         user.setPassword("123456");
-        System.out.println(user);
         User queryUser = userDAO.queryUser(user);
         System.out.println(queryUser);
+    }
+    @Test
+    public void testAll() {
+        User user = new User();
+        List<User> users = userDAO.queryAll();
+        for (User user1 : users) {
+            System.out.println(user1);
+        }
     }
 }

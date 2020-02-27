@@ -1,4 +1,5 @@
 <%@page isELIgnored="false" pageEncoding="UTF-8" contentType="text/html; utf-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="UTF-8">
 <head>
@@ -7,9 +8,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>主页</title>
-    <link rel="stylesheet" href="./boot/css/bootstrap.min.css">
-    <script src="./boot/js/jquery-3.3.1.min.js"></script>
-    <script src="./boot/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/boot/css/bootstrap.min.css">
+    <script src="${pageContext.request.contextPath}/boot/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/boot/js/bootstrap.min.js"></script>
     <style>
         .page-header {
             margin-top: 0px;
@@ -29,15 +30,16 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" action="${pageContext.request.contextPath}/user/userLogin"
+                  method="post">
                 <div class="form-group">
-                    <input type="text" id="name" name="name" class="form-control" placeholder="请输入用户名...">
+                    <input type="text" id="name" name="username" class="form-control" placeholder="请输入用户名...">
                     <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码...">
                 </div>
                 <button type="submit" class="btn btn-default">登录</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">欢迎:<span class="text-danger">小黑</span></a></li>
+                <li><a href="#">欢迎:<span class="text-danger"></span></a></li>
                 <li><a href="#">退出登录</a></li>
             </ul>
         </div>
@@ -67,66 +69,28 @@
                 <tr>
                     <th>id</th>
                     <th>姓名</th>
-                    <th>年龄</th>
-                    <th>生日</th>
                     <th>薪资</th>
                     <th>标签</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>张三</td>
-                    <td>23</td>
-                    <td>2012/12/12</td>
-                    <td>2300.12</td>
-                    <td>勤劳,踏实,热血</td>
-                    <td><a href="" class="btn btn-primary">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=""
-                                                                                            class="btn btn-primary"
-                                                                                            data-toggle="modal"
-                                                                                            data-target="#myModal">修改</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>张三</td>
-                    <td>23</td>
-                    <td>2012/12/12</td>
-                    <td>2300.12</td>
-                    <td>勤劳,踏实,热血</td>
-                    <td><a href="" class="btn btn-primary">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=""
-                                                                                            class="btn btn-primary"
-                                                                                            data-toggle="modal"
-                                                                                            data-target="#myModal">修改</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>张三</td>
-                    <td>23</td>
-                    <td>2012/12/12</td>
-                    <td>2300.12</td>
-                    <td>勤劳,踏实,热血</td>
-                    <td><a href="" class="btn btn-primary">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=""
-                                                                                            class="btn btn-primary"
-                                                                                            data-toggle="modal"
-                                                                                            data-target="#myModal">修改</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>张三</td>
-                    <td>23</td>
-                    <td>2012/12/12</td>
-                    <td>2300.12</td>
-                    <td>勤劳,踏实,热血</td>
-                    <td><a href="" class="btn btn-primary">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=""
-                                                                                            class="btn btn-primary"
-                                                                                            data-toggle="modal"
-                                                                                            data-target="#myModal">修改</a>
-                    </td>
-                </tr>
+                <c:forEach var="user" items="${requestScope.users}">
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.username}</td>
+                        <td>${user.salary}</td>
+                        <td><c:forEach var="tag" items="${user.tags}">
+                            ${tag.tag_name}
+                        </c:forEach>
+                        </td>
+                        <td><a href="" class="btn btn-primary">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=""
+                                                                                                class="btn btn-primary"
+                                                                                                data-toggle="modal"
+                                                                                                data-target="#myModal">修改</a>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
             <nav aria-label="Page navigation" class="pull-right">
